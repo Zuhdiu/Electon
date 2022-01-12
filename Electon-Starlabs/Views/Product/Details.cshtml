@@ -1,0 +1,224 @@
+﻿@model Electon_Starlabs.Models.Product
+
+
+@{
+    ViewData["Title"] = "ProductDetails";
+    List<ProductImage> Images = (List<ProductImage>)ViewBag.ProductImages;
+    ProductImage model = new ProductImage
+    {
+        Id = 1,
+        ProductId = Model.Id,
+        ProductImg = Model.DefaultImage
+    };
+    Images.Add(model);
+}
+
+<link href="~/ProductView/css/elegant-icons.css" rel="stylesheet" />
+<link href="~/ProductView/css/font-awesome.min.css" rel="stylesheet" />
+<link href="~/ProductView/css/jquery-ui.min.css" rel="stylesheet" />
+<link href="~/ProductView/css/nice-select.css" rel="stylesheet" />
+<link href="~/ProductView/css/owl.carousel.min.css" rel="stylesheet" />
+<link href="~/ProductView/css/slicknav.min.css" rel="stylesheet" />
+<link href="~/ProductView/css/themify-icons.css" rel="stylesheet" />
+<link href="~/ProductView/css/style.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+
+
+@*    <link href="~/ProductView/css/bootstrap.min.css" rel="stylesheet" />
+*@
+
+
+
+<section class="product-shop spad page-details">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+
+
+            </div>
+            <div class="col-lg-9 center">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="product-pic-zoom">
+                            @{
+                                string encodedDefaultImage = Convert.ToBase64String(Model.DefaultImage);
+                                string defaultImage = string.Format("data:image/gif;base64,{0}", encodedDefaultImage);
+                                <img class="product-big-img" src="@defaultImage" alt="">
+                            }
+                            <div class="zoom-icon">
+                                <i class="fa fa-search-plus"></i>
+                            </div>
+                        </div>
+                        <div class="product-thumbs">
+                            <div class="product-thumbs-track ps-slider owl-carousel" id="photo-carousel" @*style="display: flex;"*@>
+
+                                @foreach (var image in Images)
+                                {
+                                    string encoded = Convert.ToBase64String(image.ProductImg);
+                                    string photo = string.Format("data:image/gif;base64,{0}", encoded);
+
+
+                                    <div class="pt active" data-imgbigurl="@photo">
+                                        <img src="@photo" alt="asdasdasds">
+                                    </div>
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="product-details">
+                            <div class="pd-title">
+                                <span>ELECTON</span>
+                                <h3>@Model.Name</h3>
+                                <a href="#" class="heart-icon"><i class="icon_heart_alt"></i></a>
+                            </div>
+                            <div class="pd-rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <span>(5)</span>
+                            </div>
+                            <div class="pd-desc">
+                                <p>
+                                    @Model.Description
+                                </p>
+
+                                <h4>@Model.Price<span>(@Model.Price)</span></h4>
+                            </div>
+                            <div class="pd-color">
+                                <h6>Color</h6>
+                                <div class="pd-color-choose">
+                                    <div class="cc-item">
+                                        <input type="radio" id="cc-black">
+                                        <label for="cc-black"></label>
+                                    </div>
+                                    <div class="cc-item">
+                                        <input type="radio" id="cc-yellow">
+                                        <label for="cc-yellow" class="cc-yellow"></label>
+                                    </div>
+                                    <div class="cc-item">
+                                        <input type="radio" id="cc-violet">
+                                        <label for="cc-violet" class="cc-violet"></label>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="quantity">
+                               @* <div class="pro-qty">
+                                    <input type="text" asp-controller="Orders" asp-action="AddItemToShoppingCart" value="1">
+                                </div>*@
+                                <a class="primary-btn pd-cart" style="align-content:center" asp-controller="Orders" asp-action="AddItemToShoppingCart"  asp-route-id="@Model.Id">Add To Cart</a>
+                            </div>
+                            <ul class="pd-tags">
+                                <li><span>CATEGORIES</span>: @Model.Category.Name</li>
+                            </ul>
+                            <div class="pd-share">
+                                <div class="p-code">Sku : 000 @Model.Id</div>
+                                <div class="pd-social">
+                                    <a href="#"><i class="ti-facebook"></i></a>
+                                    <a href="#"><i class="ti-twitter-alt"></i></a>
+                                    <a href="#"><i class="ti-linkedin"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-tab">
+                    <div class="tab-item">
+                        <ul class="nav" role="tablist">
+                            <li>
+                                <a class="active" data-toggle="tab" href="#tab-1" role="tab">DESCRIPTION</a>
+                            </li>
+
+                            <li>
+                                <a data-toggle="tab" href="#tab-3" role="tab">Customer Reviews</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tab-item-content">
+                        <div class="tab-content">
+                            <div class="tab-pane fade-in active" id="tab-1" role="tabpanel">
+                                <div class="product-content">
+                                    <div class="row">
+                                        <div class="col-lg-7">
+                                            <h5>Description</h5>
+                                            <p>
+                                                @Model.Description
+                                            </p>
+
+                                        </div>
+                                        <div class="col-lg-5">
+                                            <img src="img/product-single/tab-desc.jpg" alt="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                                            <div class="tab-pane fade" id="tab-3" role="tabpanel">
+                                                <div class="customer-review-option">
+                                                    <h4>Comments</h4>
+                                                    <div class="comment-option">
+                                                        @foreach (var item in ViewData["Review"] as IEnumerable<Review>)
+                                                        {
+                                                        <div class="co-item">
+                                                            <h5>@item.Customer.Name Commented : <div class="at-reply">@item.Comment </div> </h5>
+                                                            <span style="color:gray">@item.DatePublished</span>
+                                                            
+                                                        </div>
+                                                        }
+
+                                                    </div>
+                                                    <div class="personal-rating">
+                                                        
+                                                        @* <div class="form-group">
+                                        <div class="text-warning">
+
+                                            <i class="ratingStar far fa-star"></i>
+                                            <i class="ratingStar far fa-star"></i>
+                                            <i class="ratingStar far fa-star"></i>
+                                            <i class="ratingStar far fa-star"></i>
+                                            <i class="ratingStar far fa-star"></i>
+                                        </div>
+                                    </div> *@
+                                                    </div>
+                                                    <div class="leave-comment">
+                                                        <h4>Leave A Comment</h4>
+                                                        <form class="comment-form" asp-action="CreateComment" method="post">
+                                                            <div class="row">
+
+                                                                <div class="col-lg-6">
+                                                                    <input type="hidden" value="@Model.Id" name="productId">
+                                                                </div>
+                                                                <div class="col-lg-12">
+                                                                    <textarea placeholder="Messages" name="comment"></textarea>
+                                                                    <button type="submit" class="site-btn">Send message</button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                </div>
+                            </div>
+                        </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+<script src="~/ProductView/js/jquery-3.3.1.min.js"></script>
+<script src="~/ProductView/js/bootstrap.min.js"></script>
+<script src="~/ProductView/js/jquery-ui.min.js"></script>
+<script src="~/ProductView/js/jquery.countdown.min.js"></script>
+<script src="~/ProductView/js/jquery.nice-select.min.js"></script>
+<script src="~/ProductView/js/jquery.zoom.min.js"></script>
+<script src="~/ProductView/js/jquery.dd.min.js"></script>
+<script src="~/ProductView/js/jquery.slicknav.js"></script>
+<script src="~/ProductView/js/owl.carousel.min.js"></script>
+<script src="~/ProductView/js/main.js"></script>

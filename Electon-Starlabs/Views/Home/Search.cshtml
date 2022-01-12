@@ -1,0 +1,241 @@
+﻿@model List<Product>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<!--<section class="hero-slider">-->
+<!-- Single Slider -->
+<!--<div class="single-slider">
+    <div class="container">
+        <div class="row no-gutters">
+            <div class="col-lg-9 offset-lg-3 col-12">
+                <div class="text-inner">
+                    <div class="row">
+                        <div class="col-lg-7 col-12">
+                            <div class="hero-text">
+                                <h1><span>UP TO 50% OFF </span>Shirt For Man</h1>
+                                <p>Maboriosam in a nesciung eget magnae <br> dapibus disting tloctio in the find it pereri <br> odiy maboriosm.</p>
+                                <div class="button">
+                                    <a href="#" class="btn">Shop Now!</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>-->
+<!--/ End Single Slider -->
+<!--</section>-->
+<!-- Start Product Area -->
+<div class="product-area section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-title">
+                    <h2>Item Searched</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="product-info">
+                    <div class="tab-content" id="myTabContent">
+                    <!-- Start Single Tab -->               
+                        <div class="tab-single">
+                            <div class="row">
+                                @foreach (var product in Model)
+                                {
+                                    <div class="col-xl-3 col-lg-4 col-md-4 col-12">
+                                        <div class="single-product">
+                                            <div class="product-img">
+                                                @{
+                                                    string encoded = Convert.ToBase64String(product.DefaultImage);
+                                                    string photo = string.Format("data:image/gif;base64,{0}", encoded);
+                                                }
+                                                <a asp-controller="Product" asp-action="Details">
+                                                    @if (product.Quantity == 0)
+                                                    {
+                                                        <p>Out of stock</p>
+                                                    }
+                                                    <img class="default-img" src="@photo" style="width: 234px; height: 319px; object-fit: contain;">
+                                                    @if (product.Sale > 0)
+                                                    {
+                                                        <span class="price-dec">@product.Sale% Off</span>
+                                                    }
+                                                </a>
+                                                <div class="button-head">
+                                                    <div class="product-action">
+                                                        <a data-toggle="modal" data-target="#exampleModal" title="Quick View" href="#"><i class=" ti-eye"></i><span>Quick Shop</span></a>
+                                                        <a title="Wishlist" href="#"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
+                                                    </div>
+                                                    <div class="product-action-2">
+                                                        <a title="Add to cart" href="#">Add to cart</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="product-content">
+                                                <h3><a asp-route-Id="@product.Id" asp-controller="Product" asp-action="Details">@product.Name</a></h3>
+                                                <div class="product-price">
+                                                    <span>$@product.Price</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                 }
+                            </div>
+                        </div>                     
+                    </div>              
+                 </div>
+            </div>
+         </div>
+    </div>
+</div>
+<!-- End Product Area -->
+<!-- Start Shop Home List  -->
+<section class="shop-home-list section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-6 col-12">
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="shop-section-title">
+                            <h1>On sale</h1>
+                        </div>
+                    </div>
+                </div>
+                <!-- Start Single List  -->
+                @foreach (var item in ViewData["Recently"] as IEnumerable<Product>)
+                {
+                    <div class="single-list">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-12">
+                                <div class="list-image overlay">
+                                    @{
+                                        string encoded = Convert.ToBase64String(item.DefaultImage);
+                                        string photo = string.Format("data:image/gif;base64,{0}", encoded);
+                                    }
+                                    <img src="@photo" style="width: 157px; height: 191px; object-fit: contain;" alt="#">
+                                    <a href="#" class="buy"><i class="fa fa-shopping-bag"></i></a>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-12 no-padding">
+                                <div class="content">
+                                    <h4 class="title"><a asp-route-Id="@item.Id" asp-controller="Product" asp-action="Details">@item.Name</a></h4>
+                                    <p class="price with-discount">@item.Price</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                 @*End Single List*@  
+                </div>
+                <div class="col-lg-4 col-md-6 col-12">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="shop-section-title">
+                                <h1>Best Seller</h1>
+                            </div>
+                        </div>
+                    </div>
+                 @*Start Single List*@  
+                @foreach (var item in ViewData["MostSale"] as IEnumerable<Product>)
+                {
+                    <div class="single-list">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-12">
+                                <div class="list-image overlay">
+                                    @{
+                                        string encoded = Convert.ToBase64String(item.DefaultImage);
+                                        string photo = string.Format("data:image/gif;base64,{0}", encoded);
+                                    }
+                                    <img src="@photo" style="width: 157px; height: 191px; object-fit: contain;" alt="#">
+                                    <a href="#" class="buy"><i class="fa fa-shopping-bag"></i></a>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-12 no-padding">
+                                <div class="content">
+                                    <h4 class="title"><a asp-route-Id="@item.Id" asp-controller="Product" asp-action="Details">@item.Name</a></h4>
+                                    <p class="price with-discount">@item.Price</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                 @*End Single List*@  
+                </div>
+                <div class="col-lg-4 col-md-6 col-12">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="shop-section-title">
+                                <h1>Top viewed</h1>
+                            </div>
+                        </div>
+                    </div>
+                 @*Start Single List*@  
+                @foreach (var item in ViewData["MostViewed"] as IEnumerable<Product>)
+                {
+                    <div class="single-list">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-12">
+                                <div class="list-image overlay">
+                                    @{
+                                        string encoded = Convert.ToBase64String(item.DefaultImage);
+                                        string photo = string.Format("data:image/gif;base64,{0}", encoded);
+                                    }
+                                    <img src="@photo" style="width: 157px; height: 191px; object-fit: contain;" alt="#">
+                                    <a href="#" class="buy"><i class="fa fa-shopping-bag"></i></a>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-12 no-padding">
+                                <div class="content">
+                                    <h4 class="title"><a asp-route-Id="@item.Id" asp-controller="Product" asp-action="Details">@item.Name</a></h4>
+                                    <p class="price with-discount">@item.Price</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <!-- End Single List  -->
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Shop Home List  -->
+<!-- Jquery -->
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery-migrate-3.0.0.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+
+<!-- Popper JS -->
+<script src="js/popper.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="js/bootstrap.min.js"></script>
+<!-- Color JS -->
+<script src="js/colors.js"></script>
+<!-- Slicknav JS -->
+<script src="js/slicknav.min.js"></script>
+<!-- Owl Carousel JS -->
+<script src="js/owl-carousel.js"></script>
+<!-- Magnific Popup JS -->
+<script src="js/magnific-popup.js"></script>
+<!-- Waypoints JS -->
+<script src="js/waypoints.min.js"></script>
+<!-- Countdown JS -->
+<script src="js/finalcountdown.min.js"></script>
+<!-- Nice Select JS -->
+<script src="js/nicesellect.js"></script>
+<!-- Flex Slider JS -->
+<script src="js/flex-slider.js"></script>
+<!-- ScrollUp JS -->
+<script src="js/scrollup.js"></script>
+<!-- Onepage Nav JS -->
+<script src="js/onepage-nav.min.js"></script>
+<!-- Easing JS -->
+<script src="js/easing.js"></script>
+<!-- Active JS -->
+<script src="js/active.js"></script>
+
+

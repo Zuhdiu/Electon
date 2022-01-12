@@ -1,0 +1,95 @@
+﻿@model List<ShoppingCartItem>
+
+
+<link href="~/ShoppingCartView/css/bootstrap.min.css" rel="stylesheet" />
+<link href="~/ShoppingCartView/css/elegant-icons.css" rel="stylesheet" />
+<link href="~/ShoppingCartView/css/font-awesome.min.css" rel="stylesheet" />
+<link href="~/ShoppingCartView/css/jquery-ui.min.css" rel="stylesheet" />
+<link href="~/ShoppingCartView/css/nice-select.css" rel="stylesheet" />
+<link href="~/ShoppingCartView/css/owl.carousel.min.css" rel="stylesheet" />
+<link href="~/ShoppingCartView/css/slicknav.min.css" rel="stylesheet" />
+<link href="~/ShoppingCartView/css/style.css" rel="stylesheet" />
+<link href="~/ShoppingCartView/css/themify-icons.css" rel="stylesheet" />
+<!-- Shopping Cart Section Begin -->
+<section class="checkout-section spad">
+    <div class="container">
+        <form action="#" class="checkout-form">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="checkout-content">
+                     
+                    </div>
+                    <h4>Biiling Details</h4>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <label for="fir">First Name<span>*</span></label>
+                            <p>@ViewBag.Customer.Name</p>
+@*                            <input type="text" id="fir" required>
+*@                        </div>
+                        <div class="col-lg-6">
+                            <label for="last">Last Name<span>*</span></label>
+                            <p>@ViewBag.Customer.Surname</p>
+                        </div>
+                      
+                        <div class="col-lg-12">
+                            <label for="street">Street Address<span>*</span></label>
+                            <p>@ViewBag.Customer.Address</p>
+                        </div>
+                  
+                        <div class="col-lg-12">
+                            <label for="town">Town / City<span>*</span></label>
+                            <p>@ViewBag.Customer.City</p>
+                        </div>
+                        <div class="col-lg-6">
+                            <label for="email">Email Address<span>*</span></label>
+                            <p>@ViewBag.Customer.Email</p>
+                        </div>
+                        <div class="col-lg-6">
+                            <label for="phone">Phone<span>*</span></label>
+                            <p>@ViewBag.Customer.PhoneNumber</p>
+                        </div>
+                       
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    
+                    <div class="place-order">
+                        <h4>Your Order</h4>
+                        <div class="order-total">
+                        <ul class="order-table">
+                                <li>Product <span>Total</span></li>
+                                @{decimal total = 0; }
+                                @foreach (var item in Model)
+                                {
+                                    <li class="fw-normal">@item.Product.Name x @item.Amount <span>@((item.Amount*item.Product.Price).ToString("c"))</span></li>
+                                    total = total + (item.Amount * item.Product.Price);
+                                }
+
+                                <li class="total-price">Total <span>$@total</span></li>
+
+                            </ul>
+                          
+                            <div class="order-btn">
+                                <button asp-action="GoToPayment" type="submit" class="site-btn place-btn">Place Order</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </form>
+    </div>
+</section>
+<!-- Shopping Cart Section End -->
+
+<script src="~/ProductView/js/jquery-3.3.1.min.js"></script>
+<script src="~/ProductView/js/bootstrap.min.js"></script>
+<script src="~/ProductView/js/jquery-ui.min.js"></script>
+<script src="~/ProductView/js/jquery.countdown.min.js"></script>
+<script src="~/ProductView/js/jquery.nice-select.min.js"></script>
+<script src="~/ProductView/js/jquery.zoom.min.js"></script>
+<script src="~/ProductView/js/jquery.dd.min.js"></script>
+<script src="~/ProductView/js/jquery.slicknav.js"></script>
+<script src="~/ProductView/js/owl.carousel.min.js"></script>
+<script src="~/ProductView/js/main.js"></script>

@@ -1,0 +1,108 @@
+﻿@model List<Order>
+
+@{
+    ViewData["Title"] = "All orders";
+}
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+<link href="~/OrdersViewFiles/css/bootstrap.min.css" rel="stylesheet" />
+<link href="~/OrdersViewFiles/css/owl.carousel.min.css" rel="stylesheet" />
+<link href="~/OrdersViewFiles/css/style.css" rel="stylesheet" />
+
+
+<div class="content">
+
+    <div class="container">
+        <h2 class="mb-5">Your Orders are listed here </h2>
+
+
+        <div class="table-responsive custom-table-responsive">
+
+            <table class="table custom-table">
+
+                <thead>
+                    <tr>
+                        <th scope="col">Order Id</th>
+                        <th scope="col">Products</th>
+                        <th scope="col">Total Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var order in Model)
+                    {
+                        <tr scope="row" style="top:20px">
+                            <td class="align-middle"><b>@order.Id</b></td>
+                            <td class="align-middle">
+                                <ul style="list-style-type:none">
+                                    @foreach (var item in order.OrderItems)
+                                    {
+                                        <li>
+                                            <div>
+                                                <span class="badge bg-warning">@item.Amount</span> [@item.Price.ToString("c")] - @item.Product.Name
+                                            </div>
+                                        </li>
+                                    }
+                                </ul>
+                            </td>
+                            <td class="align-middle">
+                                <b>@order.OrderItems.Select(m => m.Product.Price * m.Amount).Sum().ToString("c")</b>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+</div>
+
+
+@*
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Items</th>
+                <th>Total</th>
+                @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                {
+                    <th>User</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in Model)
+            {
+                <tr>
+                    <td class="align-middle">@order.Id</td>
+                    <td class="align-middle">
+                        <ul style="list-style-type:none">
+                            @foreach (var item in order.OrderItems)
+                            {
+                                <li>
+                                    <div class="alert alert-info" role="alert">
+                                        <span class="badge bg-success">@item.Amount</span> [@item.Price.ToString("c")] - @item.Product.Name
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                    </td>
+                    <td class="align-middle">
+                        @order.OrderItems.Select(m => m.Product.Price * m.Amount).Sum().ToString("c")
+                    </td>
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                    {
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+
+            </div>
+            </div>
+*@
+
+<script src="~/OrdersViewFiles/js/bootstrap.min.js"></script>
+<script src="~/OrdersViewFiles/js/jquery-3.3.1.min.js"></script>
+<script src="~/OrdersViewFiles/js/main.js"></script>
+<script src="~/OrdersViewFiles/js/owl.carousel.min.js"></script>
+<script src="~/OrdersViewFiles/js/"></script>

@@ -1,0 +1,8 @@
+﻿
+@inject Electon_Starlabs.Contracts.Interfaces.Services.ICategoryService test
+
+@foreach (var item in test.FindAll())
+{
+    <li class="nav-item"><a asp-route-Id="@item.Id" asp-controller="Category" asp-action="Index" role="tab">@item.Name</a></li>
+
+}
